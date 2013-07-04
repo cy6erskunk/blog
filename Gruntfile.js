@@ -90,7 +90,7 @@ module.exports = function (grunt) {
     'gh-pages': {
       options: {
         base: 'dist',
-        push: false
+        push: true
       },
       src: ['*.html', 'blog/posts/*.html', 'styles/**/*', 'page/**/*', 'images/**/*']
   }
