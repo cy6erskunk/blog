@@ -92,7 +92,7 @@ module.exports = function (grunt) {
         base: 'dist',
         push: true
       },
-      src: ['*.html', 'blog/posts/*.html', 'styles/**/*', 'page/**/*', 'images/**/*']
+      src: ['CNAME', '*.html', 'blog/posts/*.html', 'styles/**/*', 'page/**/*', 'images/**/*']
   }
   });
 
