@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/png" href="/images/cabin.png">
+    <link href="/styles/main.css" rel="stylesheet">
+    <title>cyberskunk's Blog</title>
+  </head>
+  <body>
+    <nav id="nav">
+      <h1 class="name"><a href="/">cyberskunk</a></h1>
+      <ul class="nav-links">
+        <li class="menu-in menu"><a href="#nav" class="icon-menu"></a></li>
+        <li class="menu-out menu"><a href="#" class="icon-menu"></a></li>
+        <li><a href="/about.html">about</a></li>
+        <li><a href="/archives.html">archives</a></li>
+      </ul>
+      <div class="social-media"><a href="https://github.com/cy6erskunk" class="icon-github"></a><a href="https://twitter.com/cyberskunk" class="icon-twitter"></a></div>
+    </nav>
+    <div class="content">
+      <div class="post-head group"><a href="/blog/posts/---------------.html">
+          <h1 class="post-title">Консистентность</h1></a>
+        <h2 class="post-date">2013 &#183; 6 &#183; 21</h2>
+      </div>
+      <div class="post-body"><p>А вот есть в jQuery, начиная с версии 1.2.3 функция <code>data(key)</code>, которая до версии 1.4.3 игнорирует html5 data-* атрибуты, хотя последний факт нас мало волнует.</p>
+<p>И вот если в качестве параметра передавать ей несуществующий ключ, то в версиях до 1.4.1 (включительно) мы будем получать вполне ожидаемый <code>undefined</code>, в версиии 1.4.2 - неожиданный <code>null</code>, а в следующих версиях - теперь уже неожиданный <code>undefined</code>.</p>
+<p>Берегите себя.</p>
+</div>
+      <div class="post-head group"><a href="/blog/posts/IE-10-Specific-Styles.html">
+          <h1 class="post-title">IE 10 Specific Styles</h1></a>
+        <h2 class="post-date">2013 &#183; 6 &#183; 21</h2>
+      </div>
+      <div class="post-body"><p>Так как ИЕ 10 не поддерживает условных комментариев, а написание css только для него никто не отменял, нужно использовать какой-то хак. Он, кстати, ссовсем не нова.
+Общая идея проста донельзя: запилить скриптом User-Agent в атрибут <code>html</code>, затем матчиться по нему в <code>css</code>.</p>
+<p>js:</p>
+<pre><code class="lang-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
+<span class="nx">doc</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-useragent&#39;</span><span class="p">,</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">);</span>
+</pre></div>
+</code></pre>
+<p>и в стилях:</p>
+<pre><code class="lang-css"><div class="highlight"><pre><span class="nt">html</span><span class="o">[</span><span class="nt">data-useragent</span><span class="o">*=</span><span class="s1">&#39;MSIE 10.0&#39;</span><span class="o">]</span> <span class="nt">h1</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</code></pre>
+<p>Source: <a href="http://css-tricks.com/ie-10-specific-styles/">IE 10 Specific Styles</a></p>
+</div>
+      <div class="post-head group"><a href="/blog/posts/Advanced-Grunt-tooling.html">
+          <h1 class="post-title">Advanced Grunt tooling</h1></a>
+        <h2 class="post-date">2013 &#183; 6 &#183; 20</h2>
+      </div>
+      <div class="post-body"><p>ololo</p>
+</div>
+    </div><a href="http://colinwren.github.io/Cabin/"><img src="/images/cabin.png" class="cabin"></a>
+  </body>
+</html>
