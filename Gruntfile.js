@@ -20,7 +20,7 @@ module.exports = function (grunt) {
         tasks: ['pages']
       },
       copy: {
-        files: ['src/images/**', 'src/styles/**.css', 'src/scripts/**'],
+        files: ['src/images/**', 'src/styles/**.css', 'src/styles/fonts/**', 'src/scripts/**'],
         tasks: ['copy']
       }
     },
@@ -82,6 +82,7 @@ module.exports = function (grunt) {
           src: [
             'images/**',
             'styles/**.css',
+            'styles/fonts/**',
             'scripts/**',
             'CNAME'
           ]
@@ -93,7 +94,7 @@ module.exports = function (grunt) {
         base: 'dist',
         push: true
       },
-      src: ['CNAME', '*.html', 'blog/posts/*.html', 'styles/**/*', 'page/**/*', 'images/**/*']
+      src: ['CNAME', '*.html', 'blog/posts/*.html', 'styles/**/*', 'page/**/*', 'images/**/*', 'scripts/**']
   }
   });
 
