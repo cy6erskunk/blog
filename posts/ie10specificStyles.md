@@ -1,0 +1,21 @@
+----
+title: IE 10 Specific Styles
+date:   2013-06-21
+----
+Так как ИЕ 10 не поддерживает условных комментариев, а написание css только для него никто не отменял, нужно использовать какой-то хак. Он, кстати, ссовсем не нова.
+Общая идея проста донельзя: запилить скриптом User-Agent в атрибут `html`, затем матчиться по нему в `css`.
+
+js:
+```javascript
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+```
+
+и в стилях:
+```css
+html[data-useragent*='MSIE 10.0'] h1 {
+  color: blue;
+}
+```
+
+Source: [IE 10 Specific Styles](http://css-tricks.com/ie-10-specific-styles/)
