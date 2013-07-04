@@ -82,7 +82,8 @@ module.exports = function (grunt) {
           src: [
             'images/**',
             'styles/**.css',
-            'scripts/**'
+            'scripts/**',
+            'CNAME'
           ]
         }]
       }
