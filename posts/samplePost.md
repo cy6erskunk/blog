@@ -1,5 +1,6 @@
 ----
 title: My cool blog post
+posturl: My cool blog post
 date:   2013-03-3
 ----
 ## Insightful post

@@ -1,5 +1,6 @@
 ----
 title: Candy Theme
+posturl: Candy Theme
 date:   2013-02-15
 ----
 
