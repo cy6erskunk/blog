@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="icon" type="image/png" href="/images/cabin.png">
     <link href="/styles/main.css" rel="stylesheet">
-    <title>cyberskunk's Blog</title>
+    <title>Chrome console.log bullshit explained</title>
   </head>
   <body>
     <nav id="nav">
@@ -47,33 +47,6 @@
 <p>Задача была закрыта в августе 2012 года, причем с некоторыми особенностями (<a href="https://code.google.com/p/chromium/issues/detail?id=50316#c30">#30</a>):
 <strong>при открытом DevTools</strong> Chrome создает «мгновенный снимок» объекта на момент логгирования, который включает в себя 5 свойств для объекта и 100 элементов для массива, этот снимок рендерится с примененнием наклонного шрифта. При попадании в лог сложных объектов (напр. <code>window</code>), Chrome отрисует снимок наклонным шрифтом, но при открытии сложного объекта будет показано его состояние на момент открытия его в консоли, а не на момент логгирования (<a href="https://chromium.googlecode.com/issues/attachment?aid=503160030001&amp;name=Screen+shot+2012-08-10+at+11.10.42+AM.png&amp;token=1khKL6wDKondsPabqyr0ANcTW_g%3A1375775441107&amp;inline=1&amp;thumb=1">картинка в трэкере</a>).</p>
 <p>При закрытом DevTools сохраняется старое, не всегда ожидаемое, поведение.</p>
-</div>
-      <div class="post-head group"><a href="/blog/posts/consistency.html">
-          <h1 class="post-title">Консистентность</h1></a>
-        <h2 class="post-date">2013 &#183; 6 &#183; 21</h2>
-      </div>
-      <div class="post-body"><p>А вот есть в jQuery, начиная с версии 1.2.3 функция <code>data(key)</code>, которая до версии 1.4.3 игнорирует html5 data-* атрибуты, хотя последний факт нас мало волнует.</p>
-<p>И вот если в качестве параметра передавать ей несуществующий ключ, то в версиях до 1.4.1 (включительно) мы будем получать вполне ожидаемый <code>undefined</code>, в версиии 1.4.2 - неожиданный <code>null</code>, а в следующих версиях - теперь уже неожиданный <code>undefined</code>.</p>
-<p>Берегите себя.</p>
-</div>
-      <div class="post-head group"><a href="/blog/posts/ie-10-specific-styles.html">
-          <h1 class="post-title">IE 10 Specific Styles</h1></a>
-        <h2 class="post-date">2013 &#183; 6 &#183; 21</h2>
-      </div>
-      <div class="post-body"><p>Так как ИЕ 10 не поддерживает условных комментариев, а написание css только для него никто не отменял, нужно использовать какой-то хак. Он, кстати, ссовсем не нова.
-Общая идея проста донельзя: запилить скриптом User-Agent в атрибут <code>html</code>, затем матчиться по нему в <code>css</code>.</p>
-<p>js:</p>
-<pre><code class="lang-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
-<span class="nx">doc</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-useragent&#39;</span><span class="p">,</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">);</span>
-</pre></div>
-</code></pre>
-<p>и в стилях:</p>
-<pre><code class="lang-css"><div class="highlight"><pre><span class="nt">html</span><span class="o">[</span><span class="nt">data-useragent</span><span class="o">*=</span><span class="s1">&#39;MSIE 10.0&#39;</span><span class="o">]</span> <span class="nt">h1</span> <span class="p">{</span>
-  <span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</code></pre>
-<p>Source: <a href="http://css-tricks.com/ie-10-specific-styles/">IE 10 Specific Styles</a></p>
 </div>
     </div><a href="http://colinwren.github.io/Cabin/"><img src="/images/cabin.png" class="cabin"></a>
     <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter21700567 = new Ya.Metrika({id:21700567, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
