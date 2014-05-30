@@ -19,6 +19,28 @@
       <div class="social-media"><a href="https://github.com/cy6erskunk" class="icon-github"></a><a href="https://twitter.com/cyberskunk" class="icon-twitter"></a></div>
     </nav>
     <div class="content">
+      <div class="post-head group"><a href="/blog/posts/strange-issues-with-x-ua-compatible.html">
+          <h1 class="post-title">Strange issues with X-UA-Compatible</h1></a>
+        <h2 class="post-date">2014 &#183; 5 &#183; 30</h2>
+      </div>
+      <div class="post-body"><a name="x-ua-compatible--no----...." class="anchor" href="#x-ua-compatible--no----...."><h2>X-UA-Compatible? NO!!!!....</h2>
+</a><p>There is quite simple way to tell IE to switch to older version compatibility mode - it
+is META tag (or header). MSDN describes this approach in the following  <a href="http://msdn.microsoft.com/en-us/library/jj676915(v=vs.85">article</a>.aspx).</p>
+<p>There is a way to specify multiple content attribute values, described in corresponding section of the document.</p>
+<p>However there is some strange issue with IE8: if we add</p>
+<pre><code><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">http</span><span class="o">-</span><span class="nx">equiv</span><span class="o">=</span><span class="s2">&quot;x-ua-compatible&quot;</span> <span class="nx">content</span><span class="o">=</span><span class="s2">&quot;IE=7,edge&quot;</span><span class="o">/&gt;</span>
+</pre></div>
+</code></pre>
+<p>or</p>
+<pre><code><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">http</span><span class="o">-</span><span class="nx">equiv</span><span class="o">=</span><span class="s2">&quot;x-ua-compatible&quot;</span> <span class="nx">content</span><span class="o">=</span><span class="s2">&quot;IE=7,IE=edge&quot;</span><span class="o">/&gt;</span>
+</pre></div>
+</code></pre>
+<p>into the <code>&lt;head&gt;</code> of the page, IE8 switches to IE7 mode but more recent versions of IE do not switch to compatibility mode.</p>
+<p>This behaviour is a bit strange, because IE8 could use <code>edge</code> value and act as IE8, but...</p>
+<p>That&#39;s not all! </p>
+<p>If we change <code>IE=7</code> to <code>IE=8</code>, none of IE8+ browsers switch to compatibility mode. Hmmm...</p>
+<p>It leads us to the following idea: IE8 does not understand several values and uses the very first one instead (<code>&lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;IE=6,7,edge&quot;/&gt;</code> switches IE8 in quirks mode, as if <code>&lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;IE=6&quot;/&gt;</code> was provided). </p>
+</div>
       <div class="post-head group"><a href="/blog/posts/js-closures-memory-optimization.html">
           <h1 class="post-title">JavaScript closures memory optimization - unused variables</h1></a>
         <h2 class="post-date">2013 &#183; 8 &#183; 22</h2>
@@ -74,14 +96,6 @@
 <p>Задача была закрыта в августе 2012 года, причем с некоторыми особенностями (<a href="https://code.google.com/p/chromium/issues/detail?id=50316#c30">#30</a>):
 <strong>при открытом DevTools</strong> Chrome создает «мгновенный снимок» объекта на момент логгирования, который включает в себя 5 свойств для объекта и 100 элементов для массива, этот снимок рендерится с примененнием наклонного шрифта. При попадании в лог сложных объектов (напр. <code>window</code>), Chrome отрисует снимок наклонным шрифтом, но при открытии сложного объекта будет показано его состояние на момент открытия его в консоли, а не на момент логгирования (<a href="https://chromium.googlecode.com/issues/attachment?aid=503160030001&amp;name=Screen+shot+2012-08-10+at+11.10.42+AM.png&amp;token=1khKL6wDKondsPabqyr0ANcTW_g%3A1375775441107&amp;inline=1&amp;thumb=1">картинка в трэкере</a>).</p>
 <p>При закрытом DevTools сохраняется старое, не всегда ожидаемое, поведение.</p>
-</div>
-      <div class="post-head group"><a href="/blog/posts/consistency.html">
-          <h1 class="post-title">Консистентность</h1></a>
-        <h2 class="post-date">2013 &#183; 6 &#183; 21</h2>
-      </div>
-      <div class="post-body"><p>А вот есть в jQuery, начиная с версии 1.2.3 функция <code>data(key)</code>, которая до версии 1.4.3 игнорирует html5 data-* атрибуты, хотя последний факт нас мало волнует.</p>
-<p>И вот если в качестве параметра передавать ей несуществующий ключ, то в версиях до 1.4.1 (включительно) мы будем получать вполне ожидаемый <code>undefined</code>, в версиии 1.4.2 - неожиданный <code>null</code>, а в следующих версиях - теперь уже неожиданный <code>undefined</code>.</p>
-<p>Берегите себя.</p>
 </div>
     </div><a href="http://colinwren.github.io/Cabin/"><img src="/images/cabin.png" class="cabin"></a>
     <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter21700567 = new Ya.Metrika({id:21700567, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
