@@ -1,7 +1,3 @@
-var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
-};
-
 module.exports = function (grunt) {
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -45,21 +41,12 @@ module.exports = function (grunt) {
     connect: {
       dist: {
         options: {
-        port: 5455,
-        hostname: 'localhost',
-          middleware: function (connect) {
-            return [
-              require('grunt-contrib-livereload/lib/utils').livereloadSnippet,
-              mountFolder(connect, 'dist'),
-              mountFolder(connect, 'src')
-            ];
-          }
+          port: 5455,
+          hostname: 'localhost',
+          base: 'dist/',
+          livereload: true,
+          open: 'http://localhost:5455'
         }
-      }
-    },
-    open: {
-      dist: {
-        path: 'http://localhost:5455'
       }
     },
     clean: {
@@ -109,7 +96,6 @@ module.exports = function (grunt) {
   grunt.registerTask('server', [
     'build',
     'connect',
-    'open',
     'watch'
   ]);
 
