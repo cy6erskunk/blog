@@ -14,17 +14,21 @@ process was starting to grow up and browser crashed when it began to consume abo
 Several hours later I returned to that page and noticed that it was rendered a little bit
 incorrecty in IE8. I looked through the html and found something like:
 
+```html
     <div><span>some text<span/></div>
     <div><span>some text<span/></div>
     <div><span>some text<span/></div>
     ...
+```
 
 It was really easy to fix, all I had to do was to close span properly:
 
+```html
     <div><span>some text</span></div>
     <div><span>some text</span></div>
     <div><span>some text</span></div>
     ...
+```
 
 And after reloading the page with a bunch of such a divs I noticed that it was rendered
 slightly faster or maybe I wanted to notice it... So I tried to open devtools and voala:
@@ -33,6 +37,7 @@ everything was okay.
 Well, I decided to make a test page containing small number of such divs and check out
 what IE going to do:
 
+```html
     <!DOCTYPE html>
     <html>
         <head>
@@ -45,6 +50,7 @@ what IE going to do:
             </div>
         </body>
     </html>
+```
 
 And after opening devtools I found the problem: IE8 could not fix self-closed spans, so
 HTML tab displayed nasty beast:
