@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         src: 'posts',
         dest: 'dist',
         layout: 'src/layouts/post.jade',
-        url: 'blog/posts/:posturl',
+        url: 'blog/posts/:posturl/',
         options: {
           templateEngine: 'jade',
           pagination: {

@@ -5,38 +5,33 @@
 }
 ## Epic IE8 developer tools bug
 
-Today I was fixing another minor IE8-related bug, when I found a page, which was working
-pretty fine but it was crashing IE when I tried to open devtools. I was trying to figure out what
-was happening for a while but could not get anything: the page was working pretty good in
-all browsers including IE8, but as soon as I tried to open its devtools, iexplore.exe
+Today I was fixing another minor IE8-related bug when I found a page which was working
+pretty good but it was crashing IE when devtools were opened. I was trying to figure out what
+was happening for a while but could not get anything: the page looked ok in
+all browsers including IE8, but as soon as one tried to open devtools, iexplore.exe
 process was starting to grow up and browser crashed when it began to consume about 2Gb.
 
 Several hours later I returned to that page and noticed that it was rendered a little bit
 incorrecty in IE8. I looked through the html and found something like:
-
 ```html
     <div><span>some text<span/></div>
     <div><span>some text<span/></div>
     <div><span>some text<span/></div>
     ...
 ```
-
 It was really easy to fix, all I had to do was to close span properly:
-
 ```html
     <div><span>some text</span></div>
     <div><span>some text</span></div>
     <div><span>some text</span></div>
     ...
 ```
-
 And after reloading the page with a bunch of such a divs I noticed that it was rendered
 slightly faster or maybe I wanted to notice it... So I tried to open devtools and voala:
 everything was okay. 
 
 Well, I decided to make a test page containing small number of such divs and check out
 what IE going to do:
-
 ```html
     <!DOCTYPE html>
     <html>
@@ -51,10 +46,9 @@ what IE going to do:
         </body>
     </html>
 ```
-
 And after opening devtools I found the problem: IE8 could not fix self-closed spans, so
 HTML tab displayed nasty beast:
-
+```html
     <div class="wrapper">
      |-- <div>
           |--<span>
@@ -84,7 +78,7 @@ HTML tab displayed nasty beast:
                   |-- <span>
                        |-- Text - 3
                        |-- <span/>
-
+```
 It seems like IE8 created cross-links, because when selecting nodes fron HTML tab it
 performed in following manner: select span with `1` inside it - all contents of wrapper
 block get highlighted, select span with `2` text content (does not matter which one - all
