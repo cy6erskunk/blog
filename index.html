@@ -1,107 +1,117 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/png" href="/images/cabin.png">
-    <link href="/styles/main.css" rel="stylesheet">
-    <title>cyberskunk's Blog</title>
-  </head>
-  <body>
-    <nav id="nav">
-      <h1 class="name"><a href="/">cyberskunk</a></h1>
-      <ul class="nav-links">
-        <li class="menu-in menu"><a href="#nav" class="icon-menu"></a></li>
-        <li class="menu-out menu"><a href="#" class="icon-menu"></a></li>
-        <li><a href="/about.html">about</a></li>
-        <li><a href="/archives.html">archives</a></li>
-      </ul>
-      <div class="social-media"><a href="https://github.com/cy6erskunk" class="icon-github"></a><a href="https://twitter.com/cyberskunk" class="icon-twitter"></a></div>
-    </nav>
-    <div class="content">
-      <div class="post-head group"><a href="/blog/posts/strange-issues-with-x-ua-compatible.html">
-          <h1 class="post-title">Strange issues with X-UA-Compatible</h1></a>
-        <h2 class="post-date">2014 &#183; 5 &#183; 30</h2>
-      </div>
-      <div class="post-body"><a name="x-ua-compatible--no----...." class="anchor" href="#x-ua-compatible--no----...."><h2>X-UA-Compatible? NO!!!!....</h2>
-</a><p>There is quite simple way to tell IE to switch to older version compatibility mode - it
+<!DOCTYPE html><html><head><meta charset="utf8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/png" href="/images/cabin.png"><link href="/styles/main.css" rel="stylesheet"><title>cyberskunk's Blog</title></head><body><nav id="nav"><h1 class="name"><a href="/">cyberskunk</a></h1><ul class="nav-links"><li class="menu-in menu"><a href="#nav" class="icon-menu"></a></li><li class="menu-out menu"><a href="#" class="icon-menu"></a></li><li><a href="/about.html">about</a></li><li><a href="/archives.html">archives</a></li></ul><div class="social-media"><a href="https://github.com/cy6erskunk" class="icon-github"></a><a href="https://twitter.com/cyberskunk" class="icon-twitter"></a></div></nav><div class="content"><div class="post-head group"><a href="/blog/posts/keyup-keydown-context-menu-story/"><h1 class="post-title">keyUp, keyDown and context menu story</h1></a><h2 class="post-date">2015 &#183; 3 &#183; 1</h2></div><div class="post-body"><p>It may look obvious or not but &#39;keydown&#39; event is cancelled in case context menu is open.</p>
+<p>I&#39;ve spent more than an hour trying to figure out why popup on my page was closed when
+pressing ESC with context menu having been opened before, but not on the other page,
+where nothing special was done to prevent this behaviour. </p>
+<p>I started experimenting and all of a sudden found, that I was using &#39;keyup&#39; event.
+This event mostly ignored existence of context menu. If user pressed ESC the menu was
+closed and then ESC was passed to an event handler. Switching to &#39;keydown&#39; made the
+tableau absolutely different: keystrokes were passed to context menu only and ESC was
+just closing it.</p>
+<p>Woo-hoo!</p>
+</div><div class="post-head group"><a href="/blog/posts/strange-issues-with-x-ua-compatible/"><h1 class="post-title">Strange issues with X-UA-Compatible</h1></a><h2 class="post-date">2014 &#183; 5 &#183; 30</h2></div><div class="post-body"><h2><a name="x-ua-compatible-no" class="anchor" href="#x-ua-compatible-no"><span class="header-link"></span></a>X-UA-Compatible? NO!!!!....</h2><p>There is quite simple way to tell IE to switch to older version compatibility mode - it
 is META tag (or header). MSDN describes this approach in the following
 <a href="http://msdn.microsoft.com/en-us/library/jj676915(v=vs.85).aspx">article</a></p>
 <p>There is a way to specify multiple content attribute values, described in corresponding section of the document.</p>
 <p>However there is some strange issue with IE8: if we add</p>
 <pre><code><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">http</span><span class="o">-</span><span class="nx">equiv</span><span class="o">=</span><span class="s2">&quot;x-ua-compatible&quot;</span> <span class="nx">content</span><span class="o">=</span><span class="s2">&quot;IE=7,edge&quot;</span><span class="o">/&gt;</span>
 </pre></div>
-</code></pre>
-<p>or</p>
+
+</code></pre><p>or</p>
 <pre><code><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">meta</span> <span class="nx">http</span><span class="o">-</span><span class="nx">equiv</span><span class="o">=</span><span class="s2">&quot;x-ua-compatible&quot;</span> <span class="nx">content</span><span class="o">=</span><span class="s2">&quot;IE=7,IE=edge&quot;</span><span class="o">/&gt;</span>
 </pre></div>
-</code></pre>
-<p>into the <code>&lt;head&gt;</code> of the page, IE8 switches to IE7 mode but more recent versions of IE do not switch to compatibility mode.</p>
+
+</code></pre><p>into the <code>&lt;head&gt;</code> of the page, IE8 switches to IE7 mode but more recent versions of IE do not switch to compatibility mode.</p>
 <p>This behaviour is a bit strange, because IE8 could use <code>edge</code> value and act as IE8, but...</p>
 <p>That&#39;s not all! </p>
 <p>If we change <code>IE=7</code> to <code>IE=8</code>, none of IE8+ browsers switch to compatibility mode. Hmmm...</p>
 <p>It leads us to the following idea: IE8 does not understand several values and uses the very first one instead (<code>&lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;IE=6,7,edge&quot;/&gt;</code> switches IE8 in quirks mode, as if <code>&lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;IE=6&quot;/&gt;</code> was provided). </p>
-</div>
-      <div class="post-head group"><a href="/blog/posts/js-closures-memory-optimization.html">
-          <h1 class="post-title">JavaScript closures memory optimization - unused variables</h1></a>
-        <h2 class="post-date">2013 &#183; 8 &#183; 22</h2>
-      </div>
-      <div class="post-body"><p>Есть интересная особенность у Chrome и Firefox (возможно, в других браузерах тоже): переменные из родительского контекста, которые не используются в функции, выпиливаются из замыкания. То есть, если в следующем коде:</p>
-<pre><code class="lang-javascript"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span><span class="p">;</span>
-    <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// &lt;-- put breakpoint on this line</span>
-    <span class="p">})();</span>
-<span class="p">})();</span>
+</div><div class="post-head group"><a href="/blog/posts/epic-ie8-developer-tools-bug/"><h1 class="post-title">Epic IE8 developer tools bug</h1></a><h2 class="post-date">2014 &#183; 5 &#183; 30</h2></div><div class="post-body"><h2><a name="epic-ie8-developer-tools-bug" class="anchor" href="#epic-ie8-developer-tools-bug"><span class="header-link"></span></a>Epic IE8 developer tools bug</h2><p>Today I was fixing another minor IE8-related bug when I found a page which was working
+pretty good but it was crashing IE when devtools were opened. I was trying to figure out what
+was happening for a while but could not get anything: the page looked ok in
+all browsers including IE8, but as soon as one tried to open devtools, iexplore.exe
+process was starting to grow up and browser crashed when it began to consume about 2Gb.</p>
+<p>Several hours later I returned to that page and noticed that it was rendered a little bit
+incorrecty in IE8. I looked through the html and found something like:</p>
+<pre><code class="lang-html"><div class="highlight"><pre>    <span class="nt">&lt;div&gt;&lt;span&gt;</span>some text<span class="nt">&lt;span/&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div&gt;&lt;span&gt;</span>some text<span class="nt">&lt;span/&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div&gt;&lt;span&gt;</span>some text<span class="nt">&lt;span/&gt;&lt;/div&gt;</span>
+    ...
 </pre></div>
+
 </code></pre>
-<p>поставить breakpoint на строке, где объявляется <code>bar</code>, и в момент остановки попробовать получить значение <code>foo</code>, то мы получим <code>ReferenceError: foo is not defined</code>. При этом, следующий код прекрасно отработает, как следовало ожидать:</p>
-<pre><code class="lang-javascript"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span><span class="p">;</span>
-    <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// &lt;-- put breakpoint on this line</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
-    <span class="p">})();</span>
-<span class="p">})();</span>
+<p>It was really easy to fix, all I had to do was to close span properly:</p>
+<pre><code class="lang-html"><div class="highlight"><pre>    <span class="nt">&lt;div&gt;&lt;span&gt;</span>some text<span class="nt">&lt;/span&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div&gt;&lt;span&gt;</span>some text<span class="nt">&lt;/span&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div&gt;&lt;span&gt;</span>some text<span class="nt">&lt;/span&gt;&lt;/div&gt;</span>
+    ...
 </pre></div>
+
 </code></pre>
-<p>и <code>foo</code> вполне себе бует доступна во вложенной функции.</p>
-<p>Делается это, по всей видимости, для того, чтобы не захламлять память ненужными данными. И никаких проблем вызывать не должно, но, как оказалось, может приводить к неожиданностям при дебаггинге.</p>
-<p>Наблюдали это поведение в Chromium 25 и Firefox 22, но, если верить <a href="http://stackoverflow.com/questions/15801471/deeper-understanding-of-closure-in-javascript">StackOverflow</a>, эта оптимизация уже есть в Firefox 18.</p>
-</div>
-      <div class="post-head group"><a href="/blog/posts/chrome-consolelog.html">
-          <h1 class="post-title">Chrome console.log bullshit explained</h1></a>
-        <h2 class="post-date">2013 &#183; 8 &#183; 6</h2>
-      </div>
-      <div class="post-body"><p>Несколько раз сталкивался с тем, что <code>console.log(var)</code> в Chrome DevTools показывает что-то странное. Что-то вроде:</p>
-<pre><code class="lang-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
-<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">);</span>
-<span class="p">}</span>
+<p>And after reloading the page with a bunch of such a divs I noticed that it was rendered
+slightly faster or maybe I wanted to notice it... So I tried to open devtools and voala:
+everything was okay. </p>
+<p>Well, I decided to make a test page containing small number of such divs and check out
+what IE going to do:</p>
+<pre><code class="lang-html"><div class="highlight"><pre>    <span class="cp">&lt;!DOCTYPE html&gt;</span>
+    <span class="nt">&lt;html&gt;</span>
+        <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;/head&gt;</span>
+        <span class="nt">&lt;body&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;wrapper&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;div&gt;&lt;span&gt;</span>1<span class="nt">&lt;span/&gt;&lt;/div&gt;</span>
+                <span class="nt">&lt;div&gt;&lt;span&gt;</span>2<span class="nt">&lt;span/&gt;&lt;/div&gt;</span>
+                <span class="nt">&lt;div&gt;&lt;span&gt;</span>3<span class="nt">&lt;span/&gt;&lt;/div&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
 </pre></div>
+
 </code></pre>
-<p>выдает не</p>
-<pre><code class="lang-javascript"><div class="highlight"><pre><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<p>And after opening devtools I found the problem: IE8 could not fix self-closed spans, so
+HTML tab displayed nasty beast:</p>
+<pre><code class="lang-html"><div class="highlight"><pre>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;wrapper&quot;</span><span class="nt">&gt;</span>
+     |-- <span class="nt">&lt;div&gt;</span>
+          |--<span class="nt">&lt;span&gt;</span>
+          |  |-- Text - 1
+          |  |-- <span class="nt">&lt;span&gt;</span>
+          |       |-- <span class="nt">&lt;div&gt;</span>
+          |       |    |-- <span class="nt">&lt;span&gt;</span>
+          |       |         |-- Text - 2
+          |       |         |-- <span class="nt">&lt;span&gt;</span>
+          |       |              |-- <span class="nt">&lt;div&gt;</span>
+          |       |                   |-- <span class="nt">&lt;span&gt;</span>
+          |       |                        |-- Text - 3
+          |       |                        |-- <span class="nt">&lt;span/&gt;</span>
+          |       |-- <span class="nt">&lt;div&gt;</span>
+          |            |-- <span class="nt">&lt;span&gt;</span>
+          |                 |-- Text - 3
+          |                 |-- <span class="nt">&lt;span/&gt;</span>
+          |-- <span class="nt">&lt;div&gt;</span>
+          |    |-- <span class="nt">&lt;span&gt;</span>
+          |         |-- Text - 2
+          |         |-- <span class="nt">&lt;span&gt;</span>
+          |              |-- <span class="nt">&lt;div&gt;</span>
+          |                   |-- <span class="nt">&lt;span&gt;</span>
+          |                        |-- Text - 3
+          |                        |-- <span class="nt">&lt;span/&gt;</span>
+          |-- <span class="nt">&lt;div&gt;</span>
+                  |-- <span class="nt">&lt;span&gt;</span>
+                       |-- Text - 3
+                       |-- <span class="nt">&lt;span/&gt;</span>
 </pre></div>
+
 </code></pre>
-<p>а</p>
-<pre><code class="lang-javascript"><div class="highlight"><pre><span class="mi">3</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</code></pre>
-<p>Память подсказывает, что происходит это из-за того, что <code>console.log</code> работает асинхронно, объекты в него передаются по ссылке.</p>
-<p>Сегодня опять зашла речь об этом поведении, и, немного поискав и пройдя через несколько десятков дубликатов, удалось найти соответствующую задачу в трэкере Chrome:
-<a href="https://code.google.com/p/chromium/issues/detail?id=50316">Issue 50316:   Console.log gives incorrect output in Chrome Developer Tools console</a></p>
-<p>Задача была закрыта в августе 2012 года, причем с некоторыми особенностями (<a href="https://code.google.com/p/chromium/issues/detail?id=50316#c30">#30</a>):
-<strong>при открытом DevTools</strong> Chrome создает «мгновенный снимок» объекта на момент логгирования, который включает в себя 5 свойств для объекта и 100 элементов для массива, этот снимок рендерится с примененнием наклонного шрифта. При попадании в лог сложных объектов (напр. <code>window</code>), Chrome отрисует снимок наклонным шрифтом, но при открытии сложного объекта будет показано его состояние на момент открытия его в консоли, а не на момент логгирования (<a href="https://chromium.googlecode.com/issues/attachment?aid=503160030001&amp;name=Screen+shot+2012-08-10+at+11.10.42+AM.png&amp;token=1khKL6wDKondsPabqyr0ANcTW_g%3A1375775441107&amp;inline=1&amp;thumb=1">картинка в трэкере</a>).</p>
-<p>При закрытом DevTools сохраняется старое, не всегда ожидаемое, поведение.</p>
-</div>
-    </div><a href="http://colinwren.github.io/Cabin/"><img src="/images/cabin.png" class="cabin"></a>
-    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter21700567 = new Ya.Metrika({id:21700567, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-    <noscript>
-      <div><img src="//mc.yandex.ru/watch/21700567" style="position:absolute; left:-9999px;" alt=""></div>
-    </noscript>
-  </body>
-</html>
+<p>It seems like IE8 created cross-links, because when selecting nodes fron HTML tab it
+performed in following manner: select span with <code>1</code> inside it - all contents of wrapper
+block get highlighted, select span with <code>2</code> text content (does not matter which one - all
+contents except to first line get highlighted) etc.</p>
+<p>However <code>document.querySelectorAll(&#39;div&#39;).length</code> was equal to 4, as expected, and page
+source an Script tab was displayed correctly.</p>
+<h2><a name="tldr" class="anchor" href="#tldr"><span class="header-link"></span></a>TL;DR</h2><p>IE8 developer tools cannot fix incorrectly closed tags when displaying tree structure of
+document and creates some lind of cross-referenced tree of
+subrees. It leads to very fast growth of node number to display in HTML tab (in
+descried case number of nodes shown in HTNL inspector is O(2^n), where n is number of
+improperly closed span tags (There was about 100 such elements inside single wrapped in
+my case, so, yes, it is not that easy to display 10^30 nodes as I believe and if I were
+IE8 I&#39;d crash too...)</p>
+</div></div><a href="http://colinwren.github.io/Cabin/"><img src="/images/cabin.png" class="cabin"></a><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter21700567 = new Ya.Metrika({id:21700567, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/21700567" style="position:absolute; left:-9999px;" alt=""></div></noscript><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-67547987-1', 'auto');ga('send', 'pageview');</script></body></html>

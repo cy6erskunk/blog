@@ -1,4 +1,4 @@
-@import 'http://fonts.googleapis.com/css?family=Merriweather|Open+Sans';
+@import "http://fonts.googleapis.com/css?family=Merriweather|Open+Sans";
 @import url(normalize.css);
 @import url(solarized-dark.css);
 /*Icon Set: IcoMoon - Free -- http://keyamoon.com/icomoon/*/
@@ -10,7 +10,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 /* line 14, ../../src/styles/_icons.scss */
 .icon-github, .icon-menu, .icon-dribbble, .icon-mail, .icon-google-plus, .icon-facebook, .icon-twitter, .icon-pinterest {
   font-family: 'icomoon';
@@ -95,9 +94,9 @@ body {
 /* line 45, ../../src/styles/_base.scss */
 .content a {
   color: #393838;
-  -webkit-transition: color 0.2s;
   -moz-transition: color 0.2s;
   -o-transition: color 0.2s;
+  -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
 /* line 49, ../../src/styles/_base.scss */
@@ -308,10 +307,8 @@ p code {
   background: #ebebff;
   border: 1px solid #e6e6e6;
   padding: 0 0.23em;
-  -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -332,10 +329,8 @@ pre {
 
 /* line 61, ../../src/styles/_post.scss */
 .highlight {
-  -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 /* line 64, ../../src/styles/_post.scss */
